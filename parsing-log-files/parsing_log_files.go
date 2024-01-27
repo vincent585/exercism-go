@@ -1,7 +1,25 @@
 package parsinglogfiles
 
+import (
+	"regexp"
+	"slices"
+)
+
 func IsValidLine(text string) bool {
-	panic("Please implement the IsValidLine function")
+	re, err := regexp.Compile(`^\[[A-Z]{3}]`)
+	validLogs := []string{"[TRC]", "[DBG]", "[INF]", "[WRN]", "[ERR]", "[FTL]"}
+
+	if err != nil {
+		panic(err)
+	}
+
+	s := re.FindString(text)
+
+	if slices.Contains(validLogs, s) {
+		return true
+	}
+
+	return false
 }
 
 func SplitLogLine(text string) []string {
