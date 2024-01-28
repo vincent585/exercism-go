@@ -34,8 +34,7 @@ type FancyNumberBox interface {
 // ExtractFancyNumber should return the integer value for a FancyNumber
 // and 0 if any other FancyNumberBox is supplied.
 func ExtractFancyNumber(fnb FancyNumberBox) int {
-	var val interface{} = fnb
-	fn, ok := val.(FancyNumber)
+	fn, ok := fnb.(FancyNumber)
 
 	if !ok {
 		return 0
@@ -52,10 +51,21 @@ func ExtractFancyNumber(fnb FancyNumberBox) int {
 
 // DescribeFancyNumberBox should return a string describing the FancyNumberBox.
 func DescribeFancyNumberBox(fnb FancyNumberBox) string {
-	panic("Please implement DescribeFancyNumberBox")
+	return fmt.Sprintf("This is a fancy box containing the number %.1f", float64(ExtractFancyNumber(fnb)))
 }
 
 // DescribeAnything should return a string describing whatever it contains.
 func DescribeAnything(i interface{}) string {
-	panic("Please implement DescribeAnything")
+	switch v := i.(type) {
+	case int:
+		return DescribeNumber(float64(v))
+	case float64:
+		return DescribeNumber(v)
+	case NumberBox:
+		return DescribeNumberBox(v)
+	case FancyNumberBox:
+		return DescribeFancyNumberBox(v)
+	}
+
+	return "Return to sender"
 }
