@@ -51,7 +51,13 @@ func CountQuotedPasswords(lines []string) int {
 }
 
 func RemoveEndOfLineText(text string) string {
-	panic("Please implement the RemoveEndOfLineText function")
+	re, err := regexp.Compile(`((?i)end-of-line\w*(?-i))`)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return re.ReplaceAllString(text, "")
 }
 
 func TagWithUserName(lines []string) []string {
