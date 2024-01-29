@@ -1,10 +1,28 @@
 package thefarm
 
-// TODO: define the 'DivideFood' function
+func DivideFood(fodderCalculator FodderCalculator, numberOfCows int) (float64, error) {
+	fodderAmount, err := fodderCalculator.FodderAmount(numberOfCows)
 
-// TODO: define the 'ValidateInputAndDivideFood' function
+	if err != nil {
+		return 0, err
+	}
 
-// TODO: define the 'ValidateNumberOfCows' function
+	fatteningFactor, err := fodderCalculator.FatteningFactor()
+
+	if err != nil {
+		return 0, err
+	}
+
+	return (fodderAmount * fatteningFactor) / float64(numberOfCows), nil
+}
+
+func ValidateInputAndDivideFood(fodderCalculator FodderCalculator, numberOfCows int) (float64, error) {
+	panic("")
+}
+
+func ValidateNumberOfCows(numberOfCows int) error {
+	panic("")
+}
 
 // Your first steps could be to read through the tasks, and create
 // these functions with their correct parameter lists and return types.
