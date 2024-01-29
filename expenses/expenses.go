@@ -72,12 +72,5 @@ func CategoryExpenses(in []Record, p DaysPeriod, c string) (float64, error) {
 		return 0, errors.New(fmt.Sprintf("error(unkown category %s)", c))
 	}
 
-	matchesByPeriod := Filter(categoryMatches, ByDaysPeriod(p))
-	totalExpenses := 0.0
-
-	for _, record := range matchesByPeriod {
-		totalExpenses += record.Amount
-	}
-
-	return totalExpenses, nil
+	return TotalByPeriod(categoryMatches, p), nil
 }
