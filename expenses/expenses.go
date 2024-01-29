@@ -1,5 +1,7 @@
 package expenses
 
+import "strings"
+
 // Record represents an expense record.
 type Record struct {
 	Day      int
@@ -38,7 +40,9 @@ func ByDaysPeriod(p DaysPeriod) func(Record) bool {
 // the category of the record is the same as the provided category
 // and false otherwise.
 func ByCategory(c string) func(Record) bool {
-	panic("Please implement the ByCategory function")
+	return func(record Record) bool {
+		return strings.ToLower(record.Category) == strings.ToLower(c)
+	}
 }
 
 // TotalByPeriod returns total amount of expenses for records
